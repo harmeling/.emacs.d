@@ -62,8 +62,8 @@
   '(
     (t
      (:inherit pinbar-default-face
-               :box (:line-width -1 :color "gray" :style pressed-button)
-;			   :weight bold
+;               :box (:line-width -1 :color "gray" :style pressed-button)
+               :weight bold
                )
      )
     )
@@ -75,7 +75,7 @@
     (t
      (:inherit pinbar-default-face
                ;; :box (:line-width -1 :color "white" :style released-button)
-               :foreground "gray"
+               :foreground "darkgray"
                )
      )
     )
@@ -187,19 +187,20 @@
 				(propertize " " 'face 'pinbar-separator-face)
 			       (if (eq curbuf (current-buffer))
 				   (propertize
-				    (concat "<" 
+				    (concat ;" "
 					    (number-to-string (+ i 1)) 
-					    ">" 
-					    (buffer-name curbuf) 
+					    ":" 
+					    (buffer-name curbuf)
+                                            " "
 					    )
 				    'face 'pinbar-selected-face
 				    )
 				 (concat 
 				  (propertize
 				   (concat
-				    "[" 
+				    ;" " 
 				    (number-to-string (+ i 1)) 
-				    "]"
+				    ":"
 				    )
 				   'face 'pinbar-button-face
 					'mouse-face 'pinbar-selected-face
@@ -209,7 +210,8 @@
 				   'face 'pinbar-unselected-face
 					'mouse-face 'pinbar-selected-face
 					'local-map (buffer-local-value 'pinbar-tab-map curbuf)
-				   )
+				        )
+                                  " "
 				  )
 				 )
 			       )
@@ -217,11 +219,12 @@
 	  )
 	)
       )
-    (concat pline
-	    (propertize "%-" 'face (list :background padcolor
-					 :foreground padcolor))
-	    )
+    ;; (concat pline
+    ;;         (propertize "%-" 'face (list :background padcolor
+    ;;     				 :foreground padcolor))
+    ;;         )
     )
+  pline
   ;;  plinen
   )
   

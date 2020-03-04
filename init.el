@@ -33,6 +33,7 @@
      magit
      markdown-mode
      matlab-mode
+     multiple-cursors
      openwith
      peep-dired
      dash
@@ -681,7 +682,7 @@
     ("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org")))
  '(package-selected-packages
    (quote
-    (csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex)))
+    (multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex)))
  '(safe-local-variable-values
    (quote
     ((TeX-command-extra-options . "--enable-write18")
@@ -725,3 +726,4 @@
 (setq
  writeroom-bottom-divider-width 0
  writeroom-width 90)
+(global-set-key (kbd "M-w") 'writeroom-mode)

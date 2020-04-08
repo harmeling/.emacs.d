@@ -214,6 +214,7 @@
 
 ;; python
 (elpy-enable)
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 (setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))

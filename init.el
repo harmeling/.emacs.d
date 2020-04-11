@@ -655,6 +655,7 @@
       (progn
         (load-theme 'deeper-blue t)
         (set-face-attribute 'default nil :family "Inconsolata" :height 180)
+        (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
         )))
 
 

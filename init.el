@@ -103,6 +103,18 @@
 (global-set-key [ns-drag-file] 'ns-find-file)       ; dragging files into emacs opens them
 (global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
 
+
+;;; from https://www.emacswiki.org/emacs/UnfillParagraph
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph    
+(defun unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
+(global-set-key (kbd "M-Q") 'unfill-paragraph)
+
 ; from https://www.emacswiki.org/emacs/UnfillRegion
 (defun unfill-region (beg end)
   "Unfill the region, joining text paragraphs into a single
@@ -202,6 +214,8 @@
 
 ;; python
 (elpy-enable)
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
@@ -656,6 +670,7 @@
         (load-theme 'deeper-blue t)
         (set-face-attribute 'default nil :family "Inconsolata" :height 180)
         (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
+;        (set-face-attribute 'default nil :family "SF Mono" :height 180)
         )))
 
 

@@ -1,3 +1,7 @@
+.mc-lists.el
+auto-save-list/
+elpy/
+*~
 elpa/
 history
 srecode-map.el

@@ -605,7 +605,7 @@
 ;; deft (notational velocity)
 (require 'deft)
 (setq deft-default-extension "org")
-(setq deft-directory "~/sciebo/notes")
+(setq deft-directory "~/Dropbox/notes")
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
 (setq deft-auto-save-interval 100.0)

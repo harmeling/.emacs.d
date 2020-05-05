@@ -670,7 +670,7 @@
         (load-theme 'deeper-blue t)
         (set-face-attribute 'default nil :family "Inconsolata" :height 180)
         (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
-;        (set-face-attribute 'default nil :family "SF Mono" :height 180)
+        ;(set-face-attribute 'default nil :family "SF Mono" :height 180)
         )))
 
 
@@ -743,3 +743,21 @@
  writeroom-bottom-divider-width 0
  writeroom-width 90)
 (global-set-key (kbd "M-w") 'writeroom-mode)
+
+
+;; regular expressions
+(defun attribution ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (insert "% https://lizenzhinweisgenerator.de\n")
+  (insert "% " (thing-at-point 'line))
+  (insert "{\\tiny Source: ")
+  (re-search-forward "<a href=\"\\([^\"]*\\)\"[^>]*>\\([^<]*\\)</a>" nil t)
+  (replace-match "\\\\href{\\1}{\\2}" nil nil)
+  (re-search-forward "<a href=\"\\([^\"]*\\)\"[^>]*>\\([^<]*\\)</a>" nil t)
+  (replace-match "\\\\url{\\1}" nil nil)
+  (re-search-forward "<a href=\"\\([^\"]*\\)\"[^>]*>\\([^<]*\\)</a>" nil t)
+  (replace-match "\\\\href{\\1}{\\2}" nil nil)
+  (insert "}")
+  (next-line)
+  )

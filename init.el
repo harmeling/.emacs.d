@@ -34,9 +34,9 @@
      markdown-mode
      matlab-mode
      multiple-cursors
-     openwith
      peep-dired
      dash
+     treemacs
      writeroom-mode
      yasnippet
      yasnippet-snippets
@@ -100,6 +100,7 @@
 (global-set-key (kbd "s-`") (kbd "C-x b RET"))                    ; switch to other buffer
 (global-set-key (kbd "s-o")
                 '(lambda () (interactive) (find-file default-directory)))      ; open file
+(define-key dired-mode-map (kbd "s-o") (kbd "!open RET"))   ; open a file/directory externally
 (global-set-key [ns-drag-file] 'ns-find-file)       ; dragging files into emacs opens them
 (global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
 
@@ -158,10 +159,10 @@
    kept-old-versions 5
    version-control t)       ; use versioned backups
 
-;; externally open certain files
-(openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "open" (file))
-                              ("\\.djvu\\'" "open" (file))))
+;; externally open certain files (ONLY WORKING WITH ERROR)
+;(openwith-mode t)
+;(setq openwith-associations '(("\\.pdf\\'" "open" (file))
+;                              ("\\.djvu\\'" "open" (file))))
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t trash-directory "~/.Trash/emacs")
@@ -604,7 +605,7 @@
 
 ;; deft (notational velocity)
 (require 'deft)
-(setq deft-default-extension "org")
+(setq deft-default-extension "md")
 (setq deft-directory "~/Dropbox/notes")
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
@@ -673,6 +674,9 @@
         ;(set-face-attribute 'default nil :family "SF Mono" :height 180)
         )))
 
+;; treemacs
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -680,30 +684,27 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(csv-separators (quote ("," "	")))
+ '(csv-separators '("," "	"))
  '(cua-mode t nil (cua-base))
  '(debug-on-error t)
  '(doc-view-continuous t)
  '(ledger-reports
-   (quote
-    (("register" "ledger ")
+   '(("register" "ledger ")
      ("balance" "ledger ")
      ("bal" "%(binary) -f %(ledger-file) bal")
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+     ("account" "%(binary) -f %(ledger-file) reg %(account)")))
  '(line-spacing 0.2)
  '(org-agenda-files
-   (quote
-    ("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org")))
+   '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   (quote
-    (multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex)))
+   '(treemacs clojure-mode multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode markdown-mode deft auctex))
  '(safe-local-variable-values
-   (quote
-    ((TeX-command-extra-options . "--enable-write18")
-     (TeX-file-line-error . t))))
- '(show-paren-mode t))
+   '((TeX-command-extra-options . "--enable-write18")
+     (TeX-file-line-error . t)))
+ '(show-paren-mode t)
+ '(treemacs-no-png-images t))
 
 ;; '(fringe-mode 10 nil (fringe))  no fringes
 ;; '(linum-format " %6d ")

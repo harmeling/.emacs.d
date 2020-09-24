@@ -48,6 +48,7 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (setq inhibit-splash-screen t)                                          ; no splash screen
 (add-to-list 'load-path "~/.emacs.d/lisp")              ; where all additional packages go
@@ -604,7 +605,7 @@
 
 ;; deft (notational velocity)
 (require 'deft)
-(setq deft-default-extension "org")
+(setq deft-default-extension "md")
 (setq deft-directory "~/Dropbox/notes")
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
@@ -680,29 +681,25 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(csv-separators (quote ("," "	")))
+ '(csv-separators '("," "	" ";"))
  '(cua-mode t nil (cua-base))
  '(debug-on-error t)
  '(doc-view-continuous t)
  '(ledger-reports
-   (quote
-    (("register" "ledger ")
+   '(("register" "ledger ")
      ("balance" "ledger ")
      ("bal" "%(binary) -f %(ledger-file) bal")
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+     ("account" "%(binary) -f %(ledger-file) reg %(account)")))
  '(line-spacing 0.2)
  '(org-agenda-files
-   (quote
-    ("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org")))
+   '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   (quote
-    (multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex)))
+   '(ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
  '(safe-local-variable-values
-   (quote
-    ((TeX-command-extra-options . "--enable-write18")
-     (TeX-file-line-error . t))))
+   '((TeX-command-extra-options . "--enable-write18")
+     (TeX-file-line-error . t)))
  '(show-paren-mode t))
 
 ;; '(fringe-mode 10 nil (fringe))  no fringes

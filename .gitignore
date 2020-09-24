@@ -7,3 +7,4 @@ elpa/
 history
 srecode-map.el
 transient/
+.cache/

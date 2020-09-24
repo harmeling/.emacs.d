@@ -34,9 +34,9 @@
      markdown-mode
      matlab-mode
      multiple-cursors
-     openwith
      peep-dired
      dash
+     treemacs
      writeroom-mode
      yasnippet
      yasnippet-snippets
@@ -101,6 +101,7 @@
 (global-set-key (kbd "s-`") (kbd "C-x b RET"))                    ; switch to other buffer
 (global-set-key (kbd "s-o")
                 '(lambda () (interactive) (find-file default-directory)))      ; open file
+(define-key dired-mode-map (kbd "s-o") (kbd "!open RET"))   ; open a file/directory externally
 (global-set-key [ns-drag-file] 'ns-find-file)       ; dragging files into emacs opens them
 (global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
 
@@ -159,10 +160,10 @@
    kept-old-versions 5
    version-control t)       ; use versioned backups
 
-;; externally open certain files
-(openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "open" (file))
-                              ("\\.djvu\\'" "open" (file))))
+;; externally open certain files (ONLY WORKING WITH ERROR)
+;(openwith-mode t)
+;(setq openwith-associations '(("\\.pdf\\'" "open" (file))
+;                              ("\\.djvu\\'" "open" (file))))
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t trash-directory "~/.Trash/emacs")
@@ -673,6 +674,9 @@
         (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
         ;(set-face-attribute 'default nil :family "SF Mono" :height 180)
         )))
+
+;; treemacs
+
 
 
 (custom-set-variables

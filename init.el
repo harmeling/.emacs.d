@@ -100,7 +100,6 @@
 (global-set-key (kbd "s-`") (kbd "C-x b RET"))                    ; switch to other buffer
 (global-set-key (kbd "s-o")
                 '(lambda () (interactive) (find-file default-directory)))      ; open file
-(define-key dired-mode-map (kbd "s-o") (kbd "!open RET"))   ; open a file/directory externally
 (global-set-key [ns-drag-file] 'ns-find-file)       ; dragging files into emacs opens them
 (global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
 
@@ -216,7 +215,7 @@
 ;; python
 (elpy-enable)
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-(setq elpy-rpc-virtualenv-path "global")
+;(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
@@ -659,6 +658,12 @@
 (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
 
 
+(require 'dired-x)
+(define-key dired-mode-map (kbd "s-o") (kbd "!open RET"))   ; open a file/directory externally
+(define-key dired-mode-map (kbd "s-t") (kbd "!open SPC -a SPC Terminal SPC . RET")) ; Terminal at directory
+(setq dired-listing-switches "-alno")
+(setq dired-guess-shell-alist-user '(("" "open")))
+
 ;; Setup environment variables from the user's shell.
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
@@ -688,6 +693,7 @@
  '(cua-mode t nil (cua-base))
  '(debug-on-error t)
  '(doc-view-continuous t)
+ '(doc-view-resolution 200)
  '(ledger-reports
    '(("register" "ledger ")
      ("balance" "ledger ")
@@ -699,7 +705,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(treemacs clojure-mode multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode markdown-mode deft auctex))
+   '(2048-game treemacs clojure-mode multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode markdown-mode deft auctex))
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
@@ -742,9 +748,9 @@
 ;; writeroom
 (setq
  writeroom-bottom-divider-width 0
- writeroom-width 90)
+ writeroom-width 120)
 (global-set-key (kbd "M-w") 'writeroom-mode)
-
+(global-writeroom-mode 0)
 
 ;; regular expressions
 (defun attribution ()

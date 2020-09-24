@@ -48,6 +48,7 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (setq inhibit-splash-screen t)                                          ; no splash screen
 (add-to-list 'load-path "~/.emacs.d/lisp")              ; where all additional packages go
@@ -689,7 +690,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(csv-separators '("," "	"))
+ '(csv-separators '("," "	" ";"))
  '(cua-mode t nil (cua-base))
  '(debug-on-error t)
  '(doc-view-continuous t)
@@ -705,12 +706,11 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(2048-game treemacs clojure-mode multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode markdown-mode deft auctex))
+   '(ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
- '(show-paren-mode t)
- '(treemacs-no-png-images t))
+ '(show-paren-mode t))
 
 ;; '(fringe-mode 10 nil (fringe))  no fringes
 ;; '(linum-format " %6d ")

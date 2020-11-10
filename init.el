@@ -6,7 +6,7 @@
 
 ;; package management
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)                     ; necessary to allow customizing in the following
 
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")

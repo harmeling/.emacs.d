@@ -706,7 +706,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
+   '(sudoku typing typing-game typit 2048-game ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))

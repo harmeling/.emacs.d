@@ -160,9 +160,9 @@
    version-control t)       ; use versioned backups
 
 ;; externally open certain files (ONLY WORKING WITH ERROR)
-;(openwith-mode t)
-;(setq openwith-associations '(("\\.pdf\\'" "open" (file))
-;                              ("\\.djvu\\'" "open" (file))))
+(require 'openwith)
+(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
+(openwith-mode t)
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t trash-directory "~/.Trash/emacs")
@@ -173,7 +173,7 @@
  
 ;; latex
 (setenv "PATH" (concat "/usr/texbin:/usr/local/bin:" (getenv "PATH")))
-(setq exec-path (append '("/usr/texbin" "/usr/local/bin") exec-path))
+(setq exec-path (append '("/usr/texbin" "/usr/local/bin" "~/.local/bin") exec-path))
 (setq TeX-save-query nil)					 ; don't ask before TeXing
 (setq TeX-view-program-list		
       '(("MacOS-PDF-viewer" "open -a Skim %o")		  ; most likely Preview or Skim
@@ -215,6 +215,7 @@
 
 ;; python
 (elpy-enable)
+(remove-hook 'elpy-modules 'elpy-module-flymake)
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 ;(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
@@ -238,6 +239,8 @@
   (interactive)
   (if (y-or-n-p "Do you really want to kill the associated python shell?")
       (elpy-shell-kill)))
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "C-c M-s")))
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "C-c M-r")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
 ;;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "s-t") (kbd "s-`")))
@@ -695,6 +698,7 @@
  '(debug-on-error t)
  '(doc-view-continuous t)
  '(doc-view-resolution 200)
+ '(elpy-mode-hook '((lambda nil (highlight-indentation-mode -1))))
  '(ledger-reports
    '(("register" "ledger ")
      ("balance" "ledger ")
@@ -706,7 +710,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(sudoku typing typing-game typit 2048-game ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
+   '(julia-mode julia-repl julia-shell julia-snail julia-vterm sudoku typing typing-game typit 2048-game ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
@@ -743,7 +747,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:background "gray25" :foreground "black" :box (:line-width (1 . 1) :style released-button)))))
+ '(mode-line-buffer-id ((t (:foreground "gray" :weight bold))))
+ '(pinbar-unselected-face ((t (:inherit pinbar-default-face :foreground "black")))))
 
 ;; writeroom
 (setq

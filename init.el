@@ -6,7 +6,7 @@
 
 ;; package management
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)                     ; necessary to allow customizing in the following
 
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
@@ -33,10 +33,10 @@
      magit
      markdown-mode
      matlab-mode
+     multi-term
      multiple-cursors
      peep-dired
      dash
-     treemacs
      writeroom-mode
      yasnippet
      yasnippet-snippets
@@ -176,7 +176,8 @@
 (setq exec-path (append '("/usr/texbin" "/usr/local/bin" "~/.local/bin") exec-path))
 (setq TeX-save-query nil)					 ; don't ask before TeXing
 (setq TeX-view-program-list		
-      '(("MacOS-PDF-viewer" "open -a Skim %o")		  ; most likely Preview or Skim
+;      '(("MacOS-PDF-viewer" "open -a 'PDF Expert' %o")		  ; most likely Preview or Skim
+      '(("MacOS-PDF-viewer" "open -a 'PDF Expert' %o")		  ; most likely Preview or Skim
 	("MacOS-DVI-viewer" "open %o")))			    ; most likely Skim.app
 (setq TeX-view-program-selection
       '((output-pdf "MacOS-PDF-viewer")
@@ -239,10 +240,15 @@
   (interactive)
   (if (y-or-n-p "Do you really want to kill the associated python shell?")
       (elpy-shell-kill)))
+<<<<<<< HEAD
 ;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "C-c M-s")))
 ;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "C-c M-r")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
+=======
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
+>>>>>>> cac29b7 (multi-term)
 ;;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "s-t") (kbd "s-`")))
 ;; (defun python-shell-select-cell ()
 ;;   (interactive)
@@ -505,8 +511,8 @@
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell
 ;; ;;;(setq multi-term-program-switches "--login")        ; ensures that ~/.profile is sourced
-;; (global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
-;; ;;(global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
+(global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
+(global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
 ;; (defun term-send-filename ()
 ;;   "Insert the dragged filename into buffer."
 ;;   (interactive)
@@ -710,7 +716,12 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
+<<<<<<< HEAD
    '(julia-mode julia-repl julia-shell julia-snail julia-vterm sudoku typing typing-game typit 2048-game ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode deft auctex))
+=======
+   '(multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
+ '(python-shell-interpreter "python3")
+>>>>>>> cac29b7 (multi-term)
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
@@ -724,14 +735,18 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-;; TRASH THIS?
-;;(defun kill-last-output ()
-;;  (interactive)
-;;  (save-window-excursion
-;;    (push-mark)
-;;    (comint-previous-prompt 1)
-;;    (kill-ring-save (region-beginning) (region-end))))
 
+
+;; comint
+;; match to the stuff already typed in
+(eval-after-load 'comint
+  '(progn
+     ;; originally on C-c M-r and C-c M-s
+     (define-key comint-mode-map (kbd "<up>") #'comint-previous-matching-input-from-input)
+     (define-key comint-mode-map (kbd "<down>") #'comint-next-matching-input-from-input)
+     ;; originally on M-p and M-n
+     (define-key comint-mode-map (kbd "C-c M-r") #'comint-previous-input)
+     (define-key comint-mode-map (kbd "C-c M-s") #'comint-next-input)))
 
 ; pinbar
 (require 'pinbar)
@@ -747,9 +762,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+<<<<<<< HEAD
  '(mode-line ((t (:background "gray25" :foreground "black" :box (:line-width (1 . 1) :style released-button)))))
  '(mode-line-buffer-id ((t (:foreground "gray" :weight bold))))
  '(pinbar-unselected-face ((t (:inherit pinbar-default-face :foreground "black")))))
+=======
+ '(org-table ((t (:inherit fixed-pitch :foreground "LightSkyBlue")))))
+>>>>>>> cac29b7 (multi-term)
 
 ;; writeroom
 (setq

@@ -4,6 +4,8 @@
 (setq mc/cmds-to-run-for-all
       '(
         cua-paste
+        keyboard-escape-quit
+        transpose-words
         ))
 
 (setq mc/cmds-to-run-once

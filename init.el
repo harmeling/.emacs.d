@@ -220,6 +220,7 @@
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 ;(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
+(eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
 (setq python-indent-guess-indent-offset t)            ; do guess

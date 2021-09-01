@@ -215,9 +215,9 @@
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; python
-(elpy-enable)
-(remove-hook 'elpy-modules 'elpy-module-flymake)
-(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+;(elpy-enable)
+;(remove-hook 'elpy-modules 'elpy-module-flymake)
+;(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 ;(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))

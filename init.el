@@ -6,8 +6,11 @@
 
 ;; package management
 (require 'package)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(package-initialize)                     ; necessary to allow customizing in the following
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
 
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
   (package-refresh-contents))
@@ -105,6 +108,8 @@
 (global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
 
 
+(global-eldoc-mode -1)      ; shut down eldoc
+
 ;;; from https://www.emacswiki.org/emacs/UnfillParagraph
 ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph    
 (defun unfill-paragraph (&optional region)
@@ -160,9 +165,9 @@
    version-control t)       ; use versioned backups
 
 ;; externally open certain files (ONLY WORKING WITH ERROR)
-(require 'openwith)
-(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
-(openwith-mode t)
+;(require 'openwith)
+;(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
+;(openwith-mode t)
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t trash-directory "~/.Trash/emacs")
@@ -177,7 +182,8 @@
 (setq TeX-save-query nil)					 ; don't ask before TeXing
 (setq TeX-view-program-list		
 ;      '(("MacOS-PDF-viewer" "open -a 'PDF Expert' %o")		  ; most likely Preview or Skim
-      '(("MacOS-PDF-viewer" "open -a 'PDF Expert' %o")		  ; most likely Preview or Skim
+;      '(("MacOS-PDF-viewer" "open -a 'Preview' %o")		  ; most likely Preview or Skim
+      '(("MacOS-PDF-viewer" "open -a 'Skim' %o")		  ; most likely Preview or Skim
 	("MacOS-DVI-viewer" "open %o")))			    ; most likely Skim.app
 (setq TeX-view-program-selection
       '((output-pdf "MacOS-PDF-viewer")
@@ -712,7 +718,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
+   '(paredit slime latex-preview-pane multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")

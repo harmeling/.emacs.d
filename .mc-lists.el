@@ -4,6 +4,8 @@
 (setq mc/cmds-to-run-for-all
       '(
         cua-paste
+        dabbrev-expand
+        end-of-visual-line
         keyboard-escape-quit
         transpose-words
         ))

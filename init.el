@@ -181,7 +181,6 @@
 (setq exec-path (append '("/usr/texbin" "/usr/local/bin" "~/.local/bin") exec-path))
 (setq TeX-save-query nil)					 ; don't ask before TeXing
 (setq TeX-view-program-list		
-;      '(("MacOS-PDF-viewer" "open -a 'PDF Expert' %o")		  ; most likely Preview or Skim
 ;      '(("MacOS-PDF-viewer" "open -a 'Preview' %o")		  ; most likely Preview or Skim
       '(("MacOS-PDF-viewer" "open -a 'Skim' %o")		  ; most likely Preview or Skim
 	("MacOS-DVI-viewer" "open %o")))			    ; most likely Skim.app
@@ -718,7 +717,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(paredit slime latex-preview-pane multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
+   '(paredit slime multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
@@ -755,14 +754,14 @@
 ; Press (kbd “M-0”) to put a tab associated with current buffer to the header line.
 ; Press (kbd “M-- M-0”) to remove all the tabs associated with current buffer.
 ; Press M - 1~9 to visit the buffer associated with the tab shown on the header line.
-(custom-set-faces
+;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "gray25" :foreground "black" :box (:line-width (1 . 1) :style released-button)))))
- '(mode-line-buffer-id ((t (:foreground "gray" :weight bold))))
- '(pinbar-unselected-face ((t (:inherit pinbar-default-face :foreground "black")))))
+;; '(mode-line ((t (:background "gray25" :foreground "black" :box (:line-width (1 . 1) :style released-button)))))
+;; '(mode-line-buffer-id ((t (:foreground "gray" :weight bold)))))
+;; '(pinbar-unselected-face ((t (:inherit pinbar-default-face :foreground "black")))))
 
 ;; writeroom
 (setq
@@ -787,3 +786,13 @@
   (insert "}")
   (next-line)
   )
+
+
+;; SLIME and common lisp
+(setq inferior-lisp-program "sbcl")
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+(add-hook 'ielm-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook 'enable-paredit-mode)

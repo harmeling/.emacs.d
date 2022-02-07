@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-visual-line
         cua-paste
         dabbrev-expand
         end-of-visual-line

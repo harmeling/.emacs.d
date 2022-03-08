@@ -296,8 +296,9 @@
 
 
 ;; markdown-mode
-
-
+(setq markdown-enable-wiki-links t)
+(setq markdown-link-space-sub-char " ")
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<s-return>") (kbd "C-c C-o")))
 
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell

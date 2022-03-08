@@ -237,9 +237,9 @@
 (add-to-list 'auto-mode-alist '("\\.m\\'" . matlab-mode))
 ;; matlab (additional settings)
 ;(global-set-key (kbd "s-m") 'matlab-shell)                     ; short cut to start matlab
-(setq mymatlab-path "/Applications/MATLAB_R2014b.app/")
-;; (setenv "MATLAB_JAVA" "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home")
-;; (setq matlab-shell-command (concat mymatlab-path "bin/matlab"))
+(setq mymatlab-path "/Applications/MATLAB_R2021b.app/")
+;; (setenv "MATLAB_JAVA" "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home")\
+(setq matlab-shell-command (concat mymatlab-path "bin/matlab"))
 (setq matlab-shell-command-switches '("-nodesktop" "-nosplash"))
 (setq matlab-indent-level 2)
 (setq matlab-verify-on-save-flag nil)

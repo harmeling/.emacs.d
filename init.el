@@ -39,7 +39,6 @@
      multi-term
      multiple-cursors
      peep-dired
-     dash
      writeroom-mode
      yasnippet
      yasnippet-snippets
@@ -142,13 +141,6 @@
 (global-set-key (kbd "M-n") `timestamp)
 
 (global-set-key (kbd "<kp-delete>") 'delete-char)                     ; assigns delete key
-;;(global-set-key [down-mouse-3] #'flyspell-correct-word)     ; right click to flyspell-word
-;;;(setq ispell-dictionary "en")
-;;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-;;;(set-background-color "black")
-;;;(set-foreground-color "white")
-;;;(set-frame-parameter (selected-frame) 'alpha '(90 90))         ; transpararent background
-;;;(setq backup-by-copying-when-linked t)    ; to avoid problem with hard links, soft links might be good without this option
 
 (message "Still running ~/.emacs.d/init.el")
 
@@ -163,11 +155,6 @@
    kept-new-versions 5
    kept-old-versions 5
    version-control t)       ; use versioned backups
-
-;; externally open certain files (ONLY WORKING WITH ERROR)
-;(require 'openwith)
-;(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
-;(openwith-mode t)
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t trash-directory "~/.Trash/emacs")
@@ -220,10 +207,6 @@
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; python
-;(elpy-enable)
-;(remove-hook 'elpy-modules 'elpy-module-flymake)
-;(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-;(setq elpy-rpc-virtualenv-path "global")
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
@@ -246,94 +229,8 @@
   (interactive)
   (if (y-or-n-p "Do you really want to kill the associated python shell?")
       (elpy-shell-kill)))
-;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "C-c M-s")))
-;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "C-c M-r")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
-;;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "s-t") (kbd "s-`")))
-;; (defun python-shell-select-cell ()
-;;   (interactive)
-;;   (let ((cell-start (save-excursion (end-of-line) (re-search-backward "^##" nil t)))
-;;  (cell-end   (save-excursion (end-of-line) (re-search-forward  "^##" nil t))))
-;;     (if (not cell-start) (setq cell-start (point-min)))
-;;     (if (not cell-end) (setq cell-end (point-max))
-;;       (setq cell-end (- cell-end 3)))
-;;     (when (and cell-start cell-end)
-;;       (push-mark cell-start)
-;;       (goto-char cell-end)
-;;       (activate-mark)
-;;       )))
-;; (defun python-shell-send-region-or-defun ()
-;;   "send region if region active, otherwise send defun"
-;;   (interactive)
-;;   (setq pmi (point-min))      ; there's a weird bug w/o widen otherwise
-;;   (setq pma (point-max))
-;;   (if (> pmi 1) (widen))
-;;   (if (use-region-p) (python-shell-send-region (region-beginning) (region-end))
-;;     (python-shell-send-defun))
-;;   (if (> pmi 1) (narrow-to-region pmi pma))
-;;   (if (> pmi 1) (deactivate-mark))
-;;   )
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "s-t")	   ; switch
-;; 		     (lambda () (interactive)
-;; 		       (or (python-shell-get-buffer)
-;; 			   (run-python))
-;; 		       (switch-to-buffer (python-shell-get-buffer)))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "s-r")	   ; save buffer, run it, switch
-;; 		     (lambda () (interactive)
-;; 		       (save-buffer)
-;; 		       (python-shell-send-buffer)
-;; 		       (python-shell-switch-to-shell))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<S-return>")  ; send region or defun, no switch
-;; 		     (lambda () (interactive)
-;; 		       (python-shell-send-region-or-defun))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>")  ; select and send cell, switch
-;; 		     (lambda () (interactive)
-;; 		       (python-shell-select-cell)
-;; 		       (python-shell-send-region-or-defun)
-;; 		       (deactivate-mark)
-;; 		       (python-shell-switch-to-shell))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>")  ; select and send cell, no switch
-;; 		     (lambda () (interactive)
-;; 		       (save-excursion
-;; 			 (python-shell-select-cell)
-;; 			 (python-shell-send-region-or-defun)
-;; 			 (deactivate-mark)
-;; 		       ))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<S-s-return>")  ; select and send cell, and advance to next cell, no switch
-;; 		     (lambda () (interactive)
-;; 		       (save-excursion
-;; 			 (python-shell-select-cell)
-;; 			 (python-shell-send-region-or-defun)
-;; 			 (deactivate-mark)
-;; 		         )
-;;                        (re-search-forward "^##" nil t 1)
-;;                        )))
-
-
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<next>")      ; next cell as slide
-;;                             (lambda () (interactive)
-;;                               (widen)
-;;                               (re-search-forward "^##" nil t 1)
-;;                               (python-shell-select-cell)
-;;                               (narrow-to-region (region-beginning) (region-end))
-;;                               (deactivate-mark))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<prior>")      ; previous cell as slide
-;;                             (lambda () (interactive)
-;;                               (widen)
-;;                               (if (not (re-search-backward "^##" nil t 2)) (beginning-of-buffer))
-;;                               (python-shell-select-cell)
-;;                               (narrow-to-region (region-beginning) (region-end))
-;;                               (deactivate-mark))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<end>")      ; start slideshow
-;;                             (lambda () (interactive)
-;;                               (python-shell-select-cell)
-;;                               (narrow-to-region (region-beginning) (region-end))
-;;                               (deactivate-mark))))
-;; (eval-after-load 'python '(define-key python-mode-map (kbd "<home>")      ; stop slideshow
-;;                             (lambda () (interactive)
-;;                               (widen)
-;;                               (deactivate-mark))))
 
 
 ;; matlab
@@ -398,115 +295,8 @@
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 
-
-
-
-
-;;;   ;; function to create right-aligned comments
-;;;   (setq comment-start ";")                   ; commonly used variable for the comment symbol
-;;;   (defvar right-align-column 90
-;;;     "The column number to which to right-align comments.")
-;;;   (defun right-align-comment ()
-;;;     "Insert or remove space to right align comments."
-;;;     (interactive)
-;;;     (move-beginning-of-line 1)            ; check whether the comment starts a the beginning
-;;;     (while (char-equal (char-after) 32)
-;;;       (right-char))                                     ; move over white space to the right
-;;;     (unless (string= (char-to-string (char-after)) comment-start)
-;;;       (let ((b (point)))
-;;;         (move-end-of-line 1)                                       ; jump to the end of line
-;;;         (while (char-equal (char-before) 32)
-;;;           (backward-delete-char 1))                       ; delete trailing space characters
-;;;         (let ((n (- right-align-column (current-column)))); store the position of the end of line
-;;;           (if (search-backward (concat comment-start " ") b t); search for the comment start
-;;;               (if (> n 0)                                          ; delete or insert space?
-;;;                   (insert-char 32 n)                                          ; insert space
-;;;                 (while (and (< n 0) (char-equal (char-before) 32))            ; delete space
-;;;                   (backward-delete-char 1)
-;;;                   (setq n (+ n 1)))))                         ; increment n until we reach 0
-;;;           (move-beginning-of-line 1)))))                 ; jump to the beginning of the line
-;;;   (defun right-align-comment-region (top bottom)
-;;;     "Right align comments in region."
-;;;     (interactive "r")
-;;;     (deactivate-mark)
-;;;     (save-excursion
-;;;       (goto-char top)
-;;;       (dotimes (n (count-lines top bottom))
-;;;         (right-align-comment)
-;;;         (forward-line))))
-;;;   (defun right-align-comment-buffer ()
-;;;     "Right align comment in buffer."
-;;;     (interactive)
-;;;     (save-excursion
-;;;       (right-align-comment-region (point-min) (point-max))))
-
-
-
-
-
 ;; markdown-mode
-;(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-;(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;(setq markdown-css-paths (expand-file-name "~/work/bluenotes/bluenote.css")); standard style sheet
-;(setq markdown-css-paths (expand-file-name "~/work/css/github.css")); standard style sheet
-;(setq markdown-css-paths (expand-file-name "~/work/css/markdown.css")); standard style sheet
-;(setq markdown-css-paths `(,(expand-file-name "~/work/css/github-light.css")))
-;(setq markdown-css-paths `(,(expand-file-name "~/work/css/github.css")))
-;(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
-;;(eval-after-load 'markdown '(define-key markdown-mode-map (kbd "s-r") (lambda () (interactive) (save-buffer) (python-shell-send-buffer) (switch-to-buffer "*Python*"))))
-;; (defun markdown-slideshow-start () (interactive)
-;;      (text-scale-set 6)               ;; increase font size
-;;      (set-window-margins nil 10 10)   ;; left and right margin
-;;      (fringe-mode 0)                  ;; no weird fringe
-;;      (setq header-line-format " ")    ;; top margin, next line sets the size 
-;;      (set-face-attribute 'header-line nil :foreground "white"  :background "white" :height 3.0)  ;; change top margin
-;;      (auto-fill-mode -1)
-;;      ;(set-face-attribute 'markdown-pre-face nil :foreground "black")
-;;      (blink-cursor-mode -1)           ;; stop blinking the cursor
-;;      (setq cursor-type 'box)          ;; `hollow `box `hbar `bar
-;;      ;(toggle-frame-fullscreen)        ;; fullscreen!
-;;      (narrow-to-defun)
-;;      )
-;; (defun markdown-slideshow-stop () (interactive)
-;;        ;(toggle-frame-fullscreen)      ;; undo fullscreen
-;;        (widen)                        ;; show all
-;;        (text-scale-set 0)             ;; reset font size
-;;        (set-window-margins nil 0 0)   ;; left and right margin
-;;        (fringe-mode nil)              ;; again the fringe
-;;        (setq header-line-format nil)  ;; top margin, next line resets the size
-;;        (set-face-attribute 'header-line nil :foreground "white" :background "white" :height 1.0)  ;; change top margin
-;;        (blink-cursor-mode 1)          ;; blink the cursor
-;;        (setq cursor-type 'box)        ;; `hollow `box `hbar `bar
-;;        )
-;; (defun markdown-slideshow-next () (interactive)
-;;        (widen)
-;;        (markdown-outline-next)
-;;        (narrow-to-defun)
-;;        )
-;; (defun markdown-slideshow-previous () (interactive)
-;;        (widen)
-;;        (markdown-outline-previous)
-;;        (narrow-to-defun)
-;;        )
-;; (defun enable-my-markdown-settings ()
-;;   (local-set-key (kbd "M-p") (kbd "→"))
-;;   (local-set-key (kbd "<end>")   'markdown-slideshow-start)
-;;   (local-set-key (kbd "<home>")  'markdown-slideshow-stop)
-;;   (local-set-key (kbd "<next>")  'markdown-slideshow-next)
-;;   (local-set-key (kbd "<prior>") 'markdown-slideshow-previous))
-;; (add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
-
-
-;;;    
-;;;    
-;;;   ;; cmake-mode
-;;;   (require 'cmake-mode)
-;;;   (setq auto-mode-alist
-;;;         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-;;;                   ("\\.cmake\\'" . cmake-mode))
-;;;                 auto-mode-alist))
 
 
 ;; ;; multi-term (improves term.el)
@@ -514,53 +304,6 @@
 ;; ;;;(setq multi-term-program-switches "--login")        ; ensures that ~/.profile is sourced
 (global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
 (global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
-;; (defun term-send-filename ()
-;;   "Insert the dragged filename into buffer."
-;;   (interactive)
-;;   (term-send-raw-string (concat "\"" (pop ns-input-file) "\"")))
-;; ;;; see http://dea.googlecode.com/svn-history/r1380/trunk/my-lisps/multi-term-settings.el
-;; ;;; and https://github.com/russell/dotfiles/blob/master/emacs.d/el-get-init/init-multi-term.el
-;; (add-hook 'term-mode-hook
-;;           (lambda ()
-;;             (add-to-list 'term-bind-key-alist '("s-[" . multi-term-prev))
-;;             (add-to-list 'term-bind-key-alist '("s-]" . multi-term-next))
-;;             (add-to-list 'term-bind-key-alist '("<prior>" . scroll-down-command))
-;;             (add-to-list 'term-bind-key-alist '("<next>" . scroll-up-command))
-;;             (add-to-list 'term-bind-key-alist '("M-d" . term-send-forward-kill-word))
-;;             (add-to-list 'term-bind-key-alist '("<ns-drag-file>" . term-send-filename))))
-;; (add-hook 'term-exec-hook
-;;           (function
-;;            (lambda ()
-;;              (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))))
- 
- 
-;; to get the prompt correctly run the following command once 
-;; (from http://stackoverflow.com/questions/8918910/weird-character-zsh-in-emacs-terminal)
-;; tic -o ~/.terminfo /Applications/Emacs.app/Contents/Resources/etc/e/eterm-color.ti
-;;;    
-;;;    
-;;;   ;; maximize the frame if on a window system
-;;;   ;;; NOT WORKING
-;;;   ;;;(when window-system
-;;;   ;;;  (let (
-;;;   ;;;        (px (display-pixel-width))
-;;;   ;;;        (py (display-pixel-height))
-;;;   ;;;        (fx (frame-char-width))
-;;;   ;;;        (fy (frame-char-height))
-;;;   ;;;        tx ty
-;;;   ;;;        )
-;;;   ;;;    (setq tx (- (/ (/ px 2) fx) 3))                   ; offsets must be chosen empirically
-;;;   ;;;    (setq ty (- (/ py fy) 3))
-;;;   ;;;    (setq initial-frame-alist '((top . 2) (left . 2)))
-;;;   ;;;    (add-to-list 'initial-frame-alist (cons 'width tx))
-;;;   ;;;    (add-to-list 'initial-frame-alist (cons 'height ty))))
-;;;    
-;;;    
-;;;   ;; julia programming language (use ess)
-;;;   (require 'julia-mode)
-;;;   ;;(load "~/.emacs.d/elpa/ess-20131130.859/lisp/ess-site.el")
-
-
 (global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))         ; open .emacs.d/init.el
 (global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/work/notes/index.org")))     ; open main org list
 
@@ -594,34 +337,16 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-+") 'er/contract-region)
 
-;;;   ;; Emacs server to avoid multiple instances of Emacs
-;;;   (require 'server)
-;;;   (unless (server-running-p) (server-start))
-;;;    
-;;;   ;; Run at full power please
-;;;    
-;;;   ;; auto-dictionary
-;;;   (require 'auto-dictionary)
-;;;   (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
-;;;    
-;;;    
-;;;   ;; re-indent whole buffer
-;;;   (defun indent-buffer ()
-;;;     (interactive)
-;;;     (save-excursion
-;;;       (indent-region (point-min) (point-max) nil)))
-;;;   (global-set-key (kbd "M-Q") 'indent-buffer)
-
 
 ;; deft (notational velocity)
 (require 'deft)
 (setq deft-default-extension "md")
-(setq deft-directory "~/Dropbox/notes")
+(setq deft-directory "~/Dropbox/notes-2022")
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
 (setq deft-auto-save-interval 100.0)
 (setq deft-extensions '("txt" "md" "org"))
-;(setq deft-text-mode 'markdown-mode)
+(setq deft-text-mode 'markdown-mode)
 (global-set-key (kbd "s-n") 'deft)
 ;(setq deft-markdown-mode-title-level 1)
 (defun enable-my-deft-settings ()
@@ -637,33 +362,6 @@
 
 ;; Haskell
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-;(setq haskell-process-type 'cabal-repl)
-
-;(add-hook 'literate-haskell-mode-hook
-;          (lambda ()
-;            (latex-mode)
-;            (mmm-ify-by-class 'literate-haskell-latex)
-;            (interactive-haskell-mode)))
-
-;;; Latex and literate Haskell
-;(require 'mmm-auto)
-;(setq mmm-global-mode 'true)
-;(mmm-add-classes
-; '((literate-haskell-bird
-;    :submode text-mode
-;    :front "^[^>]"
-;    :include-front true
-;    :back "^>\\|$"
-;    )
-;   (literate-haskell-latex
-;    :submode haskell-mode
-;    :front "^\\\\begin{code}"
-;    :front-offset (end-of-line 1)
-;    :back "^\\\\end{code}"
-;    :include-back nil
-;    :back-offset (beginning-of-line -1)
-;    )))
-;(mmm-add-mode-ext-class nil "\\.lhs'" 'literate-haskell-latex)
 
 ;; prefer prolog over perl
 (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
@@ -717,18 +415,12 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(paredit slime multi-term speed-type julia-mode julia-repl ein processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode elpy peep-dired ghc magit yasnippet-snippets exec-path-from-shell expand-region java-snippets yasnippet matlab-mode openwith markdown-mode auctex))
+   '(paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
  '(show-paren-mode t))
-
-;; '(fringe-mode 10 nil (fringe))  no fringes
-;; '(linum-format " %6d ")
-;; '(pr-gv-command "open")
-;; '(sr-speedbar-right-side nil)
-
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -796,3 +488,9 @@
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

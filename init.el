@@ -298,7 +298,12 @@
 ;; markdown-mode
 (setq markdown-enable-wiki-links t)
 (setq markdown-link-space-sub-char " ")
-(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<s-return>") (kbd "C-c C-o")))
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<return>")
+                                   '(lambda (arg)
+                                     (interactive "P")
+                                     (if (or (markdown-link-p) (markdown-wiki-link-p))
+                                         (markdown-follow-thing-at-point arg)
+                                       (newline arg)))))
 
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell
@@ -306,7 +311,7 @@
 (global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
 (global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
 (global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))         ; open .emacs.d/init.el
-(global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/work/notes/index.org")))     ; open main org list
+(global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/Dropbox/notes/index.md")))     ; open main org list
 
 ;;;   ;; default directory
 ;;;   (setq default-directory "~/")                                 ; sets the default directory

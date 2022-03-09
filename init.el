@@ -310,8 +310,8 @@
 ;; ;;;(setq multi-term-program-switches "--login")        ; ensures that ~/.profile is sourced
 (global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
 (global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
-(global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))         ; open .emacs.d/init.el
-(global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/Dropbox/notes/index.md")))     ; open main org list
+(global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))             ; open .emacs.d/init.el
+(global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/Dropbox/notes/journal.md")))     ; open starting point
 
 ;;;   ;; default directory
 ;;;   (setq default-directory "~/")                                 ; sets the default directory

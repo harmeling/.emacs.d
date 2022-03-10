@@ -50,6 +50,13 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+;; background transparent
+;(set-frame-parameter (selected-frame) 'alpha '(81 . 81))
+;(add-to-list 'default-frame-alist '(alpha . (81 . 81)))
+;; background black
+(set-frame-parameter (selected-frame) 'background-color "#000000")
+(add-to-list 'default-frame-alist '(background-color . "#000000"))
+
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (setq inhibit-splash-screen t)                                          ; no splash screen
@@ -296,6 +303,7 @@
 
 
 ;; markdown-mode
+(setq markdown-list-indent-width 2)
 (setq markdown-enable-wiki-links t)
 (setq markdown-link-space-sub-char " ")
 (eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<return>")
@@ -304,6 +312,10 @@
                                      (if (or (markdown-link-p) (markdown-wiki-link-p))
                                          (markdown-follow-thing-at-point arg)
                                        (newline arg)))))
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<tab>") 'markdown-demote))
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<S-tab>") 'markdown-promote))
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<M-up>") 'markdown-move-up))
+(eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<M-down>") 'markdown-move-down))
 
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell

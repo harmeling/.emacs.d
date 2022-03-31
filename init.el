@@ -317,6 +317,90 @@
 (eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<M-up>") 'markdown-move-up))
 (eval-after-load 'markdown-mode '(define-key markdown-mode-map (kbd "<M-down>") 'markdown-move-down))
 
+
+;; markdown-mode
+;(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+ ;(setq markdown-css-paths (expand-file-name "~/work/bluenotes/bluenote.css")); standard style sheet
+ ;(setq markdown-css-paths (expand-file-name "~/work/css/github.css")); standard style sheet
+ ;(setq markdown-css-paths (expand-file-name "~/work/css/markdown.css")); standard style sheet
+ ;(setq markdown-css-paths `(,(expand-file-name "~/work/css/github-light.css")))
+ ;(setq markdown-css-paths `(,(expand-file-name "~/work/css/github.css")))
+ ;(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+ ;;(eval-after-load 'markdown '(define-key markdown-mode-map (kbd "s-r") (lambda () (interactive) (save-buffer) (python-shell-send-buffer) (switch-to-buffer "*Python*"))))
+
+;; markdown-slideshow
+(defcustom markdown-slideshow nil "Are we having a markdown slideshow?")
+(defun markdown-slideshow-toggle () (interactive)
+       (if markdown-slideshow
+           (markdown-slideshow-stop)
+         (markdown-slideshow-start)))
+(defun markdown-slideshow-start () (interactive)
+       (text-scale-set 6)               ;; increase font size
+       (set-window-margins nil 10 10)   ;; left and right margin
+       (fringe-mode 0)                  ;; no weird fringe
+       (setq header-line-format " ")    ;; top margin, next line sets the size 
+       (set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 3.0)  ;; change top margin
+       (auto-fill-mode -1)
+       ;(set-face-attribute 'markdown-pre-face nil :foreground "black")
+       (blink-cursor-mode -1)           ;; stop blinking the cursor
+       (setq cursor-type 'box)          ;; `hollow `box `hbar `bar
+       (narrow-to-defun)
+       ;(toggle-frame-fullscreen)        ;; fullscreen!
+       (setq markdown-slideshow t)
+       )
+(defun markdown-slideshow-stop () (interactive)
+       ;(toggle-frame-fullscreen)      ;; undo fullscreen
+       (widen)                        ;; show all
+       (text-scale-set 0)             ;; reset font size
+       (set-window-margins nil 0 0)   ;; left and right margin
+       (fringe-mode nil)              ;; again the fringe
+       (setq header-line-format nil)  ;; top margin, next line resets the size
+       (set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 1.0)  ;; change top margin
+       (blink-cursor-mode 1)          ;; blink the cursor
+       (setq cursor-type 'box)        ;; `hollow `box `hbar `bar
+       (setq markdown-slideshow nil)
+       )
+(defun markdown-slideshow-first () (interactive)
+       (if (not markdown-slideshow) (markdown-slideshow-toggle))
+       (widen)
+       (beginning-of-buffer)
+       (narrow-to-defun)
+       )
+(defun markdown-slideshow-last () (interactive)
+       (if (not markdown-slideshow) (markdown-slideshow-toggle))
+       (widen)
+       (end-of-buffer)
+       (narrow-to-defun)
+       )
+(defun markdown-slideshow-next () (interactive)
+       (if (not markdown-slideshow) (markdown-slideshow-toggle))
+       (widen)
+       (markdown-next-heading) ; (markdown-outline-next)
+       (narrow-to-defun)
+       )
+(defun markdown-slideshow-previous () (interactive)
+       (if (not markdown-slideshow) (markdown-slideshow-toggle))
+       (widen)
+       (markdown-previous-heading) ; (markdown-outline-previous)
+       (narrow-to-defun)
+       )
+(defun enable-my-markdown-settings ()
+  (local-set-key (kbd "M-p") (kbd "→"))
+  (local-set-key (kbd "<escape>")   'markdown-slideshow-toggle)
+  (local-set-key (kbd "<f5>")       'markdown-slideshow-toggle)
+  (local-set-key (kbd "<next>")     'markdown-slideshow-next)
+  (local-set-key (kbd "<prior>")    'markdown-slideshow-previous)
+  (local-set-key (kbd "<M-up>")     'markdown-slideshow-first)
+  (local-set-key (kbd "<M-down>")   'markdown-slideshow-last)
+  (local-set-key (kbd "<M-right>")  'markdown-slideshow-next)
+  (local-set-key (kbd "<M-left>")   'markdown-slideshow-previous))
+(add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
+
+
+
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell
 ;; ;;;(setq multi-term-program-switches "--login")        ; ensures that ~/.profile is sourced
@@ -365,7 +449,7 @@
 (setq deft-auto-save-interval 100.0)
 (setq deft-extensions '("txt" "md" "org"))
 (setq deft-text-mode 'markdown-mode)
-(global-set-key (kbd "s-n") 'deft)
+(global-set-key (kbd "s-n") (lambda () (interactive) (deft) (deft-filter-clear) (beginning-of-buffer)))
 ;(setq deft-markdown-mode-title-level 1)
 (defun enable-my-deft-settings ()
   (local-set-key [s-return] 'deft-new-file)
@@ -433,7 +517,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")

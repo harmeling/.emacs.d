@@ -332,18 +332,18 @@
  ;;(eval-after-load 'markdown '(define-key markdown-mode-map (kbd "s-r") (lambda () (interactive) (save-buffer) (python-shell-send-buffer) (switch-to-buffer "*Python*"))))
 
 ;; markdown-slideshow
-;(defcustom markdown-slideshow nil "Are we having a markdown slideshow?")
-;; (defun markdown-slideshow-toggle () (interactive)
-;;        (if markdown-slideshow
-;;            (markdown-slideshow-stop)
-;;          (markdown-slideshow-start)))
+(defcustom markdown-slideshow nil "Are we having a markdown slideshow?")
+(defun markdown-slideshow-toggle () (interactive)
+       (if markdown-slideshow
+           (markdown-slideshow-stop)
+         (markdown-slideshow-start)))
 (defun markdown-slideshow-start () (interactive)
        (text-scale-set 6)               ;; increase font size
-       ;(set-window-margins nil 10 10)   ;; left and right margin
+       (set-window-margins nil 10 10)   ;; left and right margin
        (fringe-mode 0)                  ;; no weird fringe
-       ;(setq header-line-format " ")    ;; top margin, next line sets the size 
-       ;(set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 3.0)  ;; change top margin
-       ;(auto-fill-mode -1)
+       (setq header-line-format " ")    ;; top margin, next line sets the size 
+       (set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 3.0)  ;; change top margin
+       (auto-fill-mode -1)
        ;(set-face-attribute 'markdown-pre-face nil :foreground "black")
        (blink-cursor-mode -1)           ;; stop blinking the cursor
        (setq cursor-type 'box)          ;; `hollow `box `hbar `bar
@@ -355,10 +355,10 @@
        ;(toggle-frame-fullscreen)      ;; undo fullscreen
        (widen)                        ;; show all
        (text-scale-set 0)             ;; reset font size
-       ;(set-window-margins nil 0 0)   ;; left and right margin
-       ;(fringe-mode nil)              ;; again the fringe
-       ;(setq header-line-format nil)  ;; top margin, next line resets the size
-       ;(set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 1.0)  ;; change top margin
+       (set-window-margins nil 0 0)   ;; left and right margin
+       (fringe-mode nil)              ;; again the fringe
+       (setq header-line-format nil)  ;; top margin, next line resets the size
+       (set-face-attribute 'header-line nil :background (face-attribute 'default :background) :height 1.0)  ;; change top margin
        (blink-cursor-mode 1)          ;; blink the cursor
        (setq cursor-type 'box)        ;; `hollow `box `hbar `bar
        (setq markdown-slideshow nil)
@@ -387,13 +387,6 @@
        (markdown-previous-heading) ; (markdown-outline-previous)
        (narrow-to-defun)
        )
-;; hook up writeroom mode 
-(define-minor-mode markdown-slideshow-mode
-  "Toggles local markdown-slideshow-mode."
-  nil
-  :lighter " slideshow:"
-  :keymap)
-
 (defun enable-my-markdown-settings ()
   (local-set-key (kbd "M-p") (kbd "→"))
   (local-set-key (kbd "<escape>")   'markdown-slideshow-toggle)
@@ -404,8 +397,22 @@
   (local-set-key (kbd "<M-down>")   'markdown-slideshow-last)
   (local-set-key (kbd "<M-right>")  'markdown-slideshow-next)
   (local-set-key (kbd "<M-left>")   'markdown-slideshow-previous))
-;;(add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
+(add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
 
+;;;;; hook up writeroom mode 
+;;;;(define-minor-mode markdown-slideshow-mode
+;;;;  "Toggles local markdown-slideshow-mode."
+;;;;  nil
+;;;;  :lighter " slideshow:"
+;;;;  :keymap
+;;;;  '(((kbd "<escape>")  . 'markdown-slideshow-toggle)
+;;;;   ((kbd "<f5>")      . 'markdown-slideshow-toggle)
+;;;;   ((kbd "<next>")    . 'markdown-slideshow-next)
+;;;;   ((kbd "<prior>")   . 'markdown-slideshow-previous)
+;;;;   ((kbd "<M-up>")    . 'markdown-slideshow-first)
+;;;;   ((kbd "<M-down>")  . 'markdown-slideshow-last)
+;;;;   ((kbd "<M-right>") . 'markdown-slideshow-next)
+;;;;   ((kbd "<M-left>")  . 'markdown-slideshow-previous)))
 
 
 ;; ;; multi-term (improves term.el)

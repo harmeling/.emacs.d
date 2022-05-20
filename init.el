@@ -42,6 +42,7 @@
      writeroom-mode
      yasnippet
      yasnippet-snippets
+     zotelo
      )))
 
 (condition-case nil
@@ -215,7 +216,7 @@
 
 ;; python
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
-(eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
+;(eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
 (eval-after-load 'python '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
 (setq python-indent-guess-indent-offset t)            ; do guess
@@ -393,10 +394,10 @@
   (local-set-key (kbd "<f5>")       'markdown-slideshow-toggle)
   (local-set-key (kbd "<next>")     'markdown-slideshow-next)
   (local-set-key (kbd "<prior>")    'markdown-slideshow-previous)
-  (local-set-key (kbd "<M-up>")     'markdown-slideshow-first)
-  (local-set-key (kbd "<M-down>")   'markdown-slideshow-last)
-  (local-set-key (kbd "<M-right>")  'markdown-slideshow-next)
-  (local-set-key (kbd "<M-left>")   'markdown-slideshow-previous))
+;  (local-set-key (kbd "<s-up>")     'markdown-slideshow-first)
+;  (local-set-key (kbd "<s-down>")   'markdown-slideshow-last)
+  (local-set-key (kbd "<s-right>")  'markdown-slideshow-next)
+  (local-set-key (kbd "<s-left>")   'markdown-slideshow-previous))
 (add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
 
 ;;;;; hook up writeroom mode 
@@ -519,6 +520,7 @@
  '(debug-on-error t)
  '(doc-view-continuous t)
  '(doc-view-resolution 200)
+ '(ein:output-area-inlined-images t)
  '(elpy-mode-hook '((lambda nil (highlight-indentation-mode -1))))
  '(ledger-reports
    '(("register" "ledger ")
@@ -531,7 +533,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(elpy ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")

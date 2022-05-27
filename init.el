@@ -28,7 +28,6 @@
      auctex
      csv-mode
      deft
-     elpy
      exec-path-from-shell
      expand-region 
      ghc
@@ -215,28 +214,37 @@
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; python
-(eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
-;(eval-after-load 'python '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
-(eval-after-load 'python '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
-(eval-after-load 'python '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
-(setq python-indent-guess-indent-offset t)            ; do guess
-(setq python-indent-guess-indent-offset-verbose nil)  ; but don't complain if you can't
-(defun elpy-shell-send-region-or-codecell ()
-  "send region if region active, otherwise send codecell"
+;(add-hook 'python-mode-hook
+;          (lambda ()(setq paragraph-start "## "
+;                          paragraph-separate "## ")))
+(defun python-shell-send-paragraph ()
+  "Sends the current paragraph to the python REPL and goes to the next one"
   (interactive)
-  (setq pmi (point-min))      ; there's a weird bug w/o widen otherwise
-  (setq pma (point-max))
-  (if (> pmi 1) (widen))
-  (if (use-region-p) (elpy-shell-send-region-or-buffer)
-    (elpy-shell-send-codecell))
-  (if (> pmi 1) (narrow-to-region pmi pma))
-  (if (> pmi 1) (deactivate-mark))
-  )
-(defun elpy-shell-kill-yes-or-no ()
-  "ask whether we should kill the shell and do it possibly"
-  (interactive)
-  (if (y-or-n-p "Do you really want to kill the associated python shell?")
-      (elpy-shell-kill)))
+  (mark-paragraph)
+  (python-shell-send-region (point) (mark))
+  (forward-paragraph))
+;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
+;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
+;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
+;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<s-backspace>") 'elpy-shell-kill-yes-or-no))
+;; (setq python-indent-guess-indent-offset t)            ; do guess
+;; (setq python-indent-guess-indent-offset-verbose nil)  ; but don't complain if you can't
+;; (defun elpy-shell-send-region-or-codecell ()
+;;   "send region if region active, otherwise send codecell"
+;;   (interactive)
+;;   (setq pmi (point-min))      ; there's a weird bug w/o widen otherwise
+;;   (setq pma (point-max))
+;;   (if (> pmi 1) (widen))
+;;   (if (use-region-p) (elpy-shell-send-region-or-buffer)
+;;     (elpy-shell-send-codecell))
+;;   (if (> pmi 1) (narrow-to-region pmi pma))
+;;   (if (> pmi 1) (deactivate-mark))
+;;   )
+;; (defun elpy-shell-kill-yes-or-no ()
+;;   "ask whether we should kill the shell and do it possibly"
+;;   (interactive)
+;;   (if (y-or-n-p "Do you really want to kill the associated python shell?")
+;;       (elpy-shell-kill)))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
 (eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
 
@@ -533,7 +541,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(elpy ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")

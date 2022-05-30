@@ -111,7 +111,9 @@
 (global-set-key (kbd "s-o")
                 '(lambda () (interactive) (find-file default-directory)))      ; open file
 (global-set-key [ns-drag-file] 'ns-find-file)       ; dragging files into emacs opens them
-(global-set-key (kbd "s-S") 'write-file)                                  ; save as buffer
+(global-set-key (kbd "s-S") (kbd "C-x C-w"))                              ; save-as buffer
+(global-set-key (kbd "s-s") (kbd "C-x C-s"))                                 ; save buffer
+(global-set-key (kbd "s-r") (kbd "C-c C-c"))                                     ; execute
 
 
 (global-eldoc-mode -1)      ; shut down eldoc

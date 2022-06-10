@@ -408,7 +408,7 @@
 ;  (local-set-key (kbd "<s-down>")   'markdown-slideshow-last)
   (local-set-key (kbd "<s-right>")  'markdown-slideshow-next)
   (local-set-key (kbd "<s-left>")   'markdown-slideshow-previous))
-(add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
+;(add-hook 'markdown-mode-hook 'enable-my-markdown-settings)
 
 ;;;;; hook up writeroom mode 
 ;;;;(define-minor-mode markdown-slideshow-mode
@@ -543,7 +543,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
@@ -622,3 +622,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; scrolling
+(require 'smooth-scrolling)
+(smooth-scrolling-mode 1)
+(setq smooth-scroll-margin 5)

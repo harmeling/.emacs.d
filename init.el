@@ -30,14 +30,16 @@
      deft
      exec-path-from-shell
      expand-region 
-     ghc
+;     ghc
      java-snippets
+     paredit
      magit
      markdown-mode
      matlab-mode
      multi-term
      multiple-cursors
      peep-dired
+     smooth-scrolling
      writeroom-mode
      yasnippet
      yasnippet-snippets

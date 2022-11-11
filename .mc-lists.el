@@ -3,14 +3,20 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        LaTeX-babel-insert-hyphen
+        LaTeX-insert-left-brace
+        TeX-insert-backslash
         beginning-of-visual-line
         cua-paste
         dabbrev-expand
         end-of-visual-line
+        ignore
         keyboard-escape-quit
+        mouse-set-region
         transpose-words
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        orgtbl-self-insert-command
         ))

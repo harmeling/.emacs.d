@@ -179,9 +179,9 @@
 (setq exec-path (append '("/usr/texbin" "/usr/local/bin" "~/.local/bin") exec-path))
 (setq TeX-save-query nil)					 ; don't ask before TeXing
 (setq TeX-view-program-list		
+      '(("MacOS-PDF-viewer" "open -a 'Skim' %o")))		  ; most likely Preview or Skim
 ;      '(("MacOS-PDF-viewer" "open -a 'Preview' %o")		  ; most likely Preview or Skim
-      '(("MacOS-PDF-viewer" "open -a 'Skim' %o")		  ; most likely Preview or Skim
-	("MacOS-DVI-viewer" "open %o")))			    ; most likely Skim.app
+;	("MacOS-DVI-viewer" "open %o")))			    ; most likely Skim.app
 (setq TeX-view-program-selection
       '((output-pdf "MacOS-PDF-viewer")
 	(output-dvi "MacOS-DVI-viewer")))
@@ -218,15 +218,19 @@
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; python
+(eval-after-load 'python '(define-key python-mode-map (kbd "<s-return>") (kbd "C-c C-r")))
+;;;;TO BE TRASHED;;;;
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
+;(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
 ;(add-hook 'python-mode-hook
 ;          (lambda ()(setq paragraph-start "## "
 ;                          paragraph-separate "## ")))
-(defun python-shell-send-paragraph ()
-  "Sends the current paragraph to the python REPL and goes to the next one"
-  (interactive)
-  (mark-paragraph)
-  (python-shell-send-region (point) (mark))
-  (forward-paragraph))
+;;(defun python-shell-send-paragraph ()
+;;  "Sends the current paragraph to the python REPL and goes to the next one"
+;;  (interactive)
+;;  (mark-paragraph)
+;;  (python-shell-send-region (point) (mark))
+;;  (forward-paragraph))
 ;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<s-return>") 'elpy-shell-send-region-or-codecell))
 ;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<M-return>") 'elpy-shell-send-buffer))
 ;; (eval-after-load 'elpy '(define-key python-mode-map (kbd "<M-s-return>") 'elpy-shell-send-codecell-and-step))
@@ -249,8 +253,6 @@
 ;;   (interactive)
 ;;   (if (y-or-n-p "Do you really want to kill the associated python shell?")
 ;;       (elpy-shell-kill)))
-(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<up>") (kbd "<C-up>")))
-(eval-after-load 'python '(define-key inferior-python-mode-map (kbd "<down>") (kbd "<C-down>")))
 
 
 ;; matlab
@@ -512,8 +514,10 @@
   (if (display-graphic-p)
       (progn
         (load-theme 'deeper-blue t)
-        (set-face-attribute 'default nil :family "Inconsolata" :height 180)
-        (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
+        ;(set-face-attribute 'default nil :family "Inconsolata" :height 180)
+        ;(set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 180)
+        (set-face-attribute 'default nil :family "Hack" :height 180)
+        (set-face-attribute 'fixed-pitch nil :family "Hack" :height 180)
         ;(set-face-attribute 'default nil :family "SF Mono" :height 180)
         )))
 
@@ -542,11 +546,12 @@
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)")))
  '(line-spacing 0.2)
+ '(mouse-autoselect-window t)
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
    '(iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
- '(python-shell-interpreter "python3")
+ '(python-shell-interpreter "python")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
      (TeX-file-line-error . t)))
@@ -612,20 +617,22 @@
 
 ;; SLIME and common lisp
 (setq inferior-lisp-program "sbcl")
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
+;(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+;(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+;(add-hook 'ielm-mode-hook 'enable-paredit-mode)
+;(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+;(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+;(add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 ;; scrolling
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 (setq smooth-scroll-margin 5)
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))

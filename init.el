@@ -437,6 +437,8 @@
 (global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
 (global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))             ; open .emacs.d/init.el
 (global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/Dropbox/notes/journal.md")))     ; open starting point
+(global-set-key (kbd "s-b") (lambda () (interactive) (find-file "~/sciebo/bluenotes/bn313 Introduction to Machine Learning, Reinforcement Learning and Causality/itml-book.tex")))     ; open the book
+(global-set-key (kbd "s-p") (lambda () (interactive) (find-file "~/git/bn203/kurt.py")))            ; open the Program
 
 ;;;   ;; default directory
 ;;;   (setq default-directory "~/")                                 ; sets the default directory
@@ -628,7 +630,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:background "gray20" :foreground "black" :box nil))))
+ '(mode-line-buffer-id ((t (:foreground "gray40" :weight bold)))))
 ;; scrolling
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)

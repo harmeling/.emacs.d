@@ -63,7 +63,7 @@
 
 (setq inhibit-splash-screen t)                                          ; no splash screen
 (add-to-list 'load-path "~/.emacs.d/lisp")              ; where all additional packages go
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")             ; homebrew packages
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")            ; homebrew packages
 (savehist-mode t)                                        ; remember stuff between sessions
 (recentf-mode t)                                                 ; remember previous files
 (setq recentf-max-saved-items 100) ;                               ; just 20 is too recent
@@ -552,7 +552,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(jsonrpc editorconfig s iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
@@ -639,3 +639,17 @@
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
+
+
+;; github copilot
+;; see https://github.com/zerolfx/copilot.el
+(add-to-list 'load-path "~/.emacs.d/lisp/copilot.el-main")
+(require 'copilot)
+;(add-hook 'prog-mode-hook 'copilot-mode)
+(defun my/copilot-tab ()
+  (interactive)
+  (or (copilot-accept-completion)
+      (indent-for-tab-command)))
+
+(with-eval-after-load 'copilot
+  (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab))

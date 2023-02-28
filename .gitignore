@@ -12,3 +12,5 @@ history
 srecode-map.el
 transient/
 .cache/
+.DS_Store
+lisp/copilot.el-main/

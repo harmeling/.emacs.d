@@ -29,6 +29,7 @@
      csv-mode
      deft
      exec-path-from-shell
+     editorconfig
      expand-region 
 ;     ghc
      java-snippets
@@ -39,6 +40,7 @@
      multi-term
      multiple-cursors
      peep-dired
+     s                  ; for copilot
      smooth-scrolling
      writeroom-mode
      yasnippet
@@ -637,8 +639,8 @@
 (smooth-scrolling-mode 1)
 (setq smooth-scroll-margin 5)
 
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
+;(load-file (let ((coding-system-for-read 'utf-8))
+;                (shell-command-to-string "agda-mode locate")))
 
 
 ;; github copilot
@@ -653,3 +655,6 @@
 
 (with-eval-after-load 'copilot
   (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab))
+
+;; finally load todo.md
+(find-file "~/Dropbox/notes/todo.md")     ; open starting point

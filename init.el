@@ -435,12 +435,11 @@
 ;; ;; multi-term (improves term.el)
 ;; (setq multi-term-program "/bin/zsh")                                    ; my default shell
 ;; ;;;(setq multi-term-program-switches "--login")        ; ensures that ~/.profile is sourced
-(global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
-(global-set-key (kbd "s-t") 'multi-term-next)             ; create or switch to a terminal
+;;(global-set-key (kbd "s-T") 'multi-term)                           ; create a new terminal
+(global-set-key (kbd "s-T") 'multi-term-next)             ; create or switch to a terminal
 (global-set-key (kbd "s-,") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))             ; open .emacs.d/init.el
-(global-set-key (kbd "s-i") (lambda () (interactive) (find-file "~/Dropbox/notes/journal.md")))     ; open starting point
-(global-set-key (kbd "s-b") (lambda () (interactive) (find-file "~/sciebo/bluenotes/bn313 Introduction to Machine Learning, Reinforcement Learning and Causality/itml-book.tex")))     ; open the book
-(global-set-key (kbd "s-p") (lambda () (interactive) (find-file "~/git/bn203/kurt.py")))            ; open the Program
+(global-set-key (kbd "s-j") (lambda () (interactive) (find-file "~/sciebo/notes/journal.md")))     ; open starting point
+(global-set-key (kbd "s-t") (lambda () (interactive) (find-file "~/sciebo/notes/todo.md")))     ; open starting point
 
 ;;;   ;; default directory
 ;;;   (setq default-directory "~/")                                 ; sets the default directory
@@ -476,11 +475,12 @@
 ;; deft (notational velocity)
 (require 'deft)
 (setq deft-default-extension "md")
-(setq deft-directory "~/Dropbox/notes")
+(setq deft-directory "~/sciebo/notes")
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
 (setq deft-auto-save-interval 100.0)
-(setq deft-extensions '("txt" "md" "org"))
+;(setq deft-recursive t)
+(setq deft-extensions '("md" "txt" "org"))
 (setq deft-text-mode 'markdown-mode)
 (global-set-key (kbd "s-n") (lambda () (interactive) (deft) (deft-filter-clear) (beginning-of-buffer)))
 ;(setq deft-markdown-mode-title-level 1)
@@ -657,4 +657,4 @@
   (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab))
 
 ;; finally load todo.md
-(find-file "~/Dropbox/notes/todo.md")     ; open starting point
+(find-file "~/sciebo/notes/todo.md")     ; open starting point

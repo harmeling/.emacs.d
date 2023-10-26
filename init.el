@@ -535,7 +535,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(csv-separators '("," "	" ";"))
+ '(csv-separators '("," "\11" ";"))
  '(cua-mode t nil (cua-base))
  '(debug-on-error t)
  '(doc-view-continuous t)
@@ -554,7 +554,7 @@
  '(org-agenda-files
    '("~/work/notes/index.org" "~/work/notes/syllabus-2019-deep-learning.org" "~/work/notes/syllabus-2019-masterseminar.org" "~/work/notes/syllabus-2019-causality.org" "~/work/notes/students.org"))
  '(package-selected-packages
-   '(jsonrpc editorconfig s iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
+   '(ledger-mode jsonrpc editorconfig s iscroll smooth-scrolling ein zotelo epresent org-present paredit slime multi-term speed-type julia-mode julia-repl processing-mode processing-snippets multiple-cursors csv-mode writeroom-mode peep-dired ghc exec-path-from-shell java-snippets yasnippet openwith auctex))
  '(python-shell-interpreter "python")
  '(safe-local-variable-values
    '((TeX-command-extra-options . "--enable-write18")
